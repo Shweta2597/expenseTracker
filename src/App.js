@@ -1,46 +1,46 @@
 import './App.css';
-import ExpenseItem from './components/ExpenseItem';
+import ExpenseList from './components/ExpenseList';
 import ExpenseForm from './components/ExpenseForm';
 import ExpenseFilter from './components/ExpenseFilter';
 import { useState } from 'react';
 
 const DUMMY_EXPENSES_DATA = [
   {
+    id:'1',
     date:new Date(2021,5,15),
     title:"Car Insurance",
-    amount:'$45'
+    amount:'45'
   },
   {
+    id:'2',
     date:new Date(2022,7,11),
     title:"Bus Insurance",
-    amount:'$78'
+    amount:'78'
   },
   {
-    date:new Date(2019,9,21),
+    id:'3',
+    date:new Date(2020,9,21),
     title:"Train Insurance",
-    amount:'$23'
+    amount:'23'
   }
 ]
 
 function App() {
 
   const [expenses,setExpenses] = useState(DUMMY_EXPENSES_DATA)
+  const [filteredYear,setFilteredYear] = useState('2020')
+
+  const filteredExpenses = expenses.filter((expense)=>{
+    return expense.date.getFullYear().toString() === filteredYear
+  })
 
   const saveExpenseDataHandler = (saveExpenseData) => {
 
-    const displayedExpensesData = [
-      saveExpenseData,
-      ...expenses
-    ]
-    setExpenses(displayedExpensesData)
-    console.log(expenses);
-    console.log(displayedExpensesData);
+    setExpenses((prevExpenses)=>{
+      return[saveExpenseData, ...prevExpenses]
+    })
 
   }
-
-
-
-  const [filteredYear,setFilteredYear] = useState('2020')
 
   const filterChangeHandler = (selectedYear) => {
     setFilteredYear(selectedYear);
@@ -51,10 +51,7 @@ function App() {
     <div className="App">
       <ExpenseForm onSaveExpenseData={saveExpenseDataHandler}></ExpenseForm>
       <ExpenseFilter selected={filteredYear} onChangeFilter={filterChangeHandler}></ExpenseFilter>
-      { 
-      expenses.map(expensesDisplayed => (
-        <ExpenseItem date={expensesDisplayed.date} title={expensesDisplayed.title} amount={expensesDisplayed.amount}></ExpenseItem>
-      ))}
+      <ExpenseList filteredExpenses={filteredExpenses}></ExpenseList>
     </div>
   );
 }

@@ -15,7 +15,8 @@ export default function ExpenseForm(props) {
     const expenseData = {
       title:changetitle,
       amount:changeamount,
-      date:new Date(changedate)
+      date:new Date(changedate),
+      id:Math.random()
     }
     console.log(expenseData);
     setChangeTitle('')
