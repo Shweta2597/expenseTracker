@@ -28,7 +28,7 @@ const DUMMY_EXPENSES_DATA = [
 function App() {
 
   const [expenses,setExpenses] = useState(DUMMY_EXPENSES_DATA)
-  const [filteredYear,setFilteredYear] = useState('2020')
+  const [filteredYear,setFilteredYear] = useState('2022')
 
   const filteredExpenses = expenses.filter((expense)=>{
     return expense.date.getFullYear().toString() === filteredYear
