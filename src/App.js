@@ -3,6 +3,7 @@ import ExpenseList from './components/ExpenseList';
 import ExpenseForm from './components/ExpenseForm';
 import ExpenseFilter from './components/ExpenseFilter';
 import { useState } from 'react';
+import ExpensesChart from './components/ExpensesChart';
 
 const DUMMY_EXPENSES_DATA = [
   {
@@ -51,6 +52,7 @@ function App() {
     <div className="App">
       <ExpenseForm onSaveExpenseData={saveExpenseDataHandler}></ExpenseForm>
       <ExpenseFilter selected={filteredYear} onChangeFilter={filterChangeHandler}></ExpenseFilter>
+      <ExpensesChart expenses={filteredExpenses}></ExpensesChart>
       <ExpenseList filteredExpenses={filteredExpenses}></ExpenseList>
     </div>
   );
